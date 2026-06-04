@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useQueryStates } from "nuqs";
 import Image from "next/image";
-import { Search, X, SlidersHorizontal, CalendarDays } from "lucide-react";
+import { Search, X, SlidersHorizontal, CalendarDays, MapPin } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { guideSearchParsers } from "@/lib/guides/searchParams";
 import { getCountryHero } from "@/config/countryHeroes";
+import { destinationMenu } from "@/config/destinations";
+import { cn } from "@/lib/utils";
 import { GuideSearchFilters } from "./GuideSearchFilters";
 
 interface Region {
@@ -24,6 +26,23 @@ interface GuideSearchHeaderProps {
 // so "south-africa" -> "South-Africa" and "south africa" -> "South Africa".
 function titleCase(s: string) {
   return s.replace(/(^|[\s-])([a-z])/g, (_, sep: string, ch: string) => sep + ch.toUpperCase());
+}
+
+// All searchable countries, flattened from the destinations menu and sorted.
+const ALL_COUNTRIES = Array.from(new Set(Object.values(destinationMenu).flat())).sort();
+
+// Render a country name with the matched portion emphasised, e.g. "cost" in
+// "Costa Rica". Falls back to the plain name when there is no match.
+function highlightMatch(name: string, query: string) {
+  const idx = name.toLowerCase().indexOf(query);
+  if (query === "" || idx === -1) return name;
+  return (
+    <>
+      {name.slice(0, idx)}
+      <span className="font-semibold text-[#0E7A45]">{name.slice(idx, idx + query.length)}</span>
+      {name.slice(idx + query.length)}
+    </>
+  );
 }
 
 // Each entry draws one flag inside a 10×7 tile at the origin.
@@ -516,23 +535,70 @@ function HeroBackground({ country }: { country: string }) {
 }
 
 export function GuideSearchHeader({ regions }: GuideSearchHeaderProps) {
-  const [filters, setFilters] = useQueryStates(guideSearchParsers);
+  // shallow: false so a destination/date change re-runs the server component
+  // and re-fetches guides — without it the URL updates but results stay stale.
+  const [filters, setFilters] = useQueryStates(guideSearchParsers, { shallow: false });
   const [countryInput, setCountryInput] = useState(titleCase(filters.country));
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  const query = countryInput.trim().toLowerCase();
+  const suggestions =
+    query === "" ? [] : ALL_COUNTRIES.filter((c) => c.toLowerCase().includes(query)).slice(0, 8);
+  // Hide the list once the typed value already exactly matches the only suggestion.
+  const showList =
+    showSuggestions &&
+    suggestions.length > 0 &&
+    !(suggestions.length === 1 && suggestions[0]?.toLowerCase() === query);
+
+  function selectCountry(name: string) {
+    setCountryInput(name);
+    setFilters({ country: name.toLowerCase() });
+    setShowSuggestions(false);
+    setActiveIndex(-1);
+  }
 
   function handleCountrySubmit(e: React.FormEvent) {
     e.preventDefault();
-    setFilters({ country: countryInput.toLowerCase().trim() });
+    const picked = activeIndex >= 0 ? suggestions[activeIndex] : undefined;
+    if (picked) {
+      selectCountry(picked);
+    } else {
+      setFilters({ country: countryInput.toLowerCase().trim() });
+      setShowSuggestions(false);
+    }
+  }
+
+  function handleCountryKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (!showList) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((i) => Math.min(i + 1, suggestions.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((i) => Math.max(i - 1, 0));
+    } else if (e.key === "Escape") {
+      setShowSuggestions(false);
+      setActiveIndex(-1);
+    }
   }
 
   function handleCountryClear() {
     setCountryInput("");
     setFilters({ country: "" });
+    setShowSuggestions(false);
+    setActiveIndex(-1);
   }
 
   return (
-    <div className="relative overflow-hidden bg-[#0E7A45]">
-      {/* ── Country-themed background ─────────────────────────────── */}
-      <HeroBackground country={filters.country} />
+    // z-20 lifts the header (and the search dropdown) above the grey results
+    // area below; overflow-hidden lives on the hero wrapper instead so the
+    // dropdown can spill past the header without being clipped.
+    <div className="relative z-20 bg-[#0E7A45]">
+      {/* ── Country-themed background (clipped so the Ken Burns zoom stays in) ── */}
+      <div className="absolute inset-0 overflow-hidden">
+        <HeroBackground country={filters.country} />
+      </div>
 
       {/* ── Content ───────────────────────────────────────────────── */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-8 md:px-8">
@@ -561,14 +627,25 @@ export function GuideSearchHeader({ regions }: GuideSearchHeaderProps) {
               {/* Destination input */}
               <form
                 onSubmit={handleCountrySubmit}
-                className="flex flex-1 items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 transition-all focus-within:border-[#0E7A45] focus-within:ring-2 focus-within:ring-[#0E7A45]/20"
+                className="relative flex flex-1 items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 transition-all focus-within:border-[#0E7A45] focus-within:ring-2 focus-within:ring-[#0E7A45]/20"
               >
                 <Search className="size-4 shrink-0 text-slate-400" />
                 <input
                   type="text"
                   value={countryInput}
-                  onChange={(e) => setCountryInput(e.target.value)}
+                  onChange={(e) => {
+                    setCountryInput(e.target.value);
+                    setShowSuggestions(true);
+                    setActiveIndex(-1);
+                  }}
+                  onFocus={() => setShowSuggestions(true)}
+                  onBlur={() => setShowSuggestions(false)}
+                  onKeyDown={handleCountryKeyDown}
                   placeholder="Where are you going?"
+                  role="combobox"
+                  aria-expanded={showList}
+                  aria-autocomplete="list"
+                  aria-controls="country-suggestions"
                   className="flex-1 bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
                 />
                 {countryInput && (
@@ -580,6 +657,34 @@ export function GuideSearchHeader({ regions }: GuideSearchHeaderProps) {
                   >
                     <X className="size-3.5" />
                   </button>
+                )}
+
+                {showList && (
+                  <ul
+                    id="country-suggestions"
+                    role="listbox"
+                    className="absolute top-full right-0 left-0 z-20 mt-2 max-h-64 overflow-auto rounded-xl border border-slate-200 bg-white py-1 shadow-xl"
+                  >
+                    {suggestions.map((name, i) => (
+                      <li key={name} role="option" aria-selected={i === activeIndex}>
+                        <button
+                          type="button"
+                          // Keep input focus so the input's onBlur doesn't close
+                          // the list before this click is handled.
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => selectCountry(name)}
+                          onMouseEnter={() => setActiveIndex(i)}
+                          className={cn(
+                            "flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50",
+                            i === activeIndex && "bg-slate-100"
+                          )}
+                        >
+                          <MapPin className="size-3.5 shrink-0 text-slate-400" />
+                          <span>{highlightMatch(name, query)}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </form>
 

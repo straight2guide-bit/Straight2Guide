@@ -172,7 +172,9 @@ interface GuideSearchFiltersProps {
 }
 
 export function GuideSearchFilters({ regions }: GuideSearchFiltersProps) {
-  const [filters, setFilters] = useQueryStates(guideSearchParsers);
+  // shallow: false so applying a filter re-runs the server component and
+  // re-fetches guides — without it the URL updates but results stay stale.
+  const [filters, setFilters] = useQueryStates(guideSearchParsers, { shallow: false });
 
   const [guidePriceLocal, setGuidePriceLocal] = useState([
     filters.minGuidePrice,
