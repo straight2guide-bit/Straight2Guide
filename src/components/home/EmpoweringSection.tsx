@@ -29,8 +29,8 @@ export function EmpoweringSection() {
         <div className="mb-10 grid grid-cols-2 gap-4">
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
             <Image
-              src="/guide.jpg"
-              alt="Local guides hiking in the jungle"
+              src="/guide-andean.jpg"
+              alt="A local Andean guide in the Peruvian highlands"
               fill
               sizes="(max-width: 768px) 50vw, 480px"
               className="object-cover"
@@ -38,7 +38,7 @@ export function EmpoweringSection() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
             <Image
-              src="/rainbow-mountain.jpg"
+              src="/rainbow-mountain-group.jpg"
               alt="Group of travelers at Rainbow Mountain, Peru"
               fill
               sizes="(max-width: 768px) 50vw, 480px"
