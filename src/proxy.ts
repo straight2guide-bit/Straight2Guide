@@ -2,6 +2,20 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function proxy(request: NextRequest) {
+  // Pre-launch password gate. Active only when SITE_PASSWORD is set (e.g. in
+  // Vercel env). Anyone must enter the password (username can be anything) to
+  // view the site. Remove the SITE_PASSWORD env var to make the site public.
+  const sitePassword = process.env.SITE_PASSWORD;
+  if (sitePassword) {
+    const expected = `Basic ${btoa(`guest:${sitePassword}`)}`;
+    if (request.headers.get("authorization") !== expected) {
+      return new NextResponse("Authentication required", {
+        status: 401,
+        headers: { "WWW-Authenticate": 'Basic realm="Straight2Guide (pre-launch)"' },
+      });
+    }
+  }
+
   let response = NextResponse.next({ request });
 
   // Skip auth middleware when Supabase env vars are not yet configured
