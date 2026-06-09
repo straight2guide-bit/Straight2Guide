@@ -71,7 +71,7 @@ export default function BecomeAGuidePage() {
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
               <Image
-                src="/guide.jpg"
+                src="/guide-andean.jpg"
                 alt="Local guide leading a trek"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
