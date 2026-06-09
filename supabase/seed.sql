@@ -34,7 +34,7 @@ insert into public.guide_profiles
 values
   ('b0000000-0000-4000-8000-000000000001', null, 'Mateus Oliveira', 'mateus-oliveira',
    'Born on a Pantanal cattle ranch, Mateus has tracked jaguars along the Cuiabá River for over a decade. He reads the river like a map and knows every oxbow where the cats come to drink.',
-   'Porto Jofre, Brazil', 'a0000000-0000-4000-8000-000000000001', '/guide-photos/mateus-oliveira.jpg',
+   'Porto Jofre, Brazil', 'a0000000-0000-4000-8000-000000000001', '/guide-photos/mateus-oliveira-2.jpg',
    12, array['portuguese','english','spanish'], array['wildlife','photography','birdwatching'],
    'Licensed Pantanal nature guide; Wilderness First Responder.',
    'verified', true,
@@ -45,7 +45,7 @@ values
 
   ('b0000000-0000-4000-8000-000000000002', null, 'Ana Beatriz Souza', 'ana-beatriz-souza',
    'A biologist turned guide, Ana specialises in birdlife and the smaller creatures most visitors miss. Her boat trips at dawn are unhurried and full of detail.',
-   'Bonito, Brazil', 'a0000000-0000-4000-8000-000000000001', '/guide-photos/ana-beatriz-souza.jpg',
+   'Bonito, Brazil', 'a0000000-0000-4000-8000-000000000001', '/guide-photos/ana-beatriz-souza-2.jpg',
    7, array['portuguese','english'], array['birdwatching','wildlife','cultural'],
    'BSc Biology; licensed regional guide.',
    'verified', false,
@@ -56,7 +56,7 @@ values
 
   ('b0000000-0000-4000-8000-000000000003', null, 'Joseph Sankale', 'joseph-sankale',
    'A Maasai guide raised on the edge of the Mara, Joseph blends deep local knowledge with a sharp eye for predators. Guests remember his calm, his humour, and his uncanny sense for where the lions will be.',
-   'Maasai Mara, Kenya', 'a0000000-0000-4000-8000-000000000002', '/guide-photos/joseph-sankale.jpg',
+   'Maasai Mara, Kenya', 'a0000000-0000-4000-8000-000000000002', '/guide-photos/joseph-sankale-2.jpg',
    15, array['english','swahili','maa'], array['safari','wildlife','cultural'],
    'KPSGA Silver-level guide; first aid certified.',
    'verified', true,
@@ -67,7 +67,7 @@ values
 
   ('b0000000-0000-4000-8000-000000000004', null, 'Grace Wanjiru', 'grace-wanjiru',
    'Grace leads walking safaris and cultural visits with an emphasis on conservation. She works closely with the conservancies and brings travellers into real community projects.',
-   'Narok, Kenya', 'a0000000-0000-4000-8000-000000000002', '/guide-photos/grace-wanjiru.jpg',
+   'Narok, Kenya', 'a0000000-0000-4000-8000-000000000002', '/guide-photos/grace-wanjiru-2.jpg',
    9, array['english','swahili'], array['hiking','cultural','wildlife'],
    'Licensed safari guide; eco-tourism certified.',
    'verified', false,
@@ -78,7 +78,7 @@ values
 
   ('b0000000-0000-4000-8000-000000000005', null, 'Baraka Mollel', 'baraka-mollel',
    'Baraka has guided the Serengeti for over twenty years and has a near-photographic memory of migration patterns. He times each day to put you in the right place before the crowds arrive.',
-   'Seronera, Tanzania', 'a0000000-0000-4000-8000-000000000003', '/guide-photos/baraka-mollel.jpg',
+   'Seronera, Tanzania', 'a0000000-0000-4000-8000-000000000003', '/guide-photos/baraka-mollel-2.jpg',
    21, array['english','swahili'], array['safari','wildlife','photography'],
    'Senior safari guide; Wilderness First Responder.',
    'verified', true,
@@ -89,7 +89,7 @@ values
 
   ('b0000000-0000-4000-8000-000000000006', null, 'Neema Kimaro', 'neema-kimaro',
    'Neema focuses on small-group, low-impact safaris and the calving season in the southern Serengeti. Patient and warm, she is a favourite with first-time safari-goers.',
-   'Arusha, Tanzania', 'a0000000-0000-4000-8000-000000000003', '/guide-photos/neema-kimaro.jpg',
+   'Arusha, Tanzania', 'a0000000-0000-4000-8000-000000000003', '/guide-photos/neema-kimaro-2.jpg',
    8, array['english','swahili','german'], array['wildlife','birdwatching','cultural'],
    'Licensed guide; first aid certified.',
    'verified', false,
