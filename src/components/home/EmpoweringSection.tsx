@@ -27,20 +27,22 @@ export function EmpoweringSection() {
         </p>
 
         <div className="mb-10 grid grid-cols-2 gap-4">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
             <Image
               src="/guide-andean.jpg"
               alt="A local Andean guide in the Peruvian highlands"
               fill
+              priority
               sizes="(max-width: 768px) 50vw, 480px"
               className="object-cover"
             />
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
             <Image
               src="/rainbow-mountain-group.jpg"
               alt="Group of travelers at Rainbow Mountain, Peru"
               fill
+              priority
               sizes="(max-width: 768px) 50vw, 480px"
               className="object-cover"
             />

@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import type { GuideSearchResult, Region } from "@/lib/supabase/types";
 
 // A published trip with the bits the homepage TripCard needs, plus its region
@@ -22,7 +22,7 @@ const supabaseConfigured = () =>
 // query (src/lib/guides/queries.ts) so GuideCard renders identically.
 export async function getFeaturedGuides(): Promise<GuideSearchResult[]> {
   if (!supabaseConfigured()) return [];
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("guide_profiles")
     .select(
@@ -45,7 +45,7 @@ export async function getFeaturedGuides(): Promise<GuideSearchResult[]> {
 // 3 featured, published trips, cheapest first.
 export async function getFeaturedTrips(): Promise<FeaturedTrip[]> {
   if (!supabaseConfigured()) return [];
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("trips")
     .select(
@@ -68,7 +68,7 @@ export async function getFeaturedTrips(): Promise<FeaturedTrip[]> {
 // Active regions for the "Explore Regions" row (no is_featured column on regions).
 export async function getFeaturedRegions(): Promise<Region[]> {
   if (!supabaseConfigured()) return [];
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("regions")
     .select("*")

@@ -26,7 +26,7 @@ export function OurStorySection() {
               </p>
             </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
             <Image
               src="/namibia-dunes.jpg"
               alt="Hikers on Namibia sand dunes, Sossusvlei"

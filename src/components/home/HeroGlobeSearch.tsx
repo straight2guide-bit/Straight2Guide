@@ -21,15 +21,7 @@ export function HeroGlobeSearch() {
     <section className="relative w-full overflow-hidden bg-white">
       {/* Logo */}
       <div className="flex justify-center pt-12 pb-6">
-        <Image
-          src="/logo.png"
-          alt="Straight2Guide"
-          width={180}
-          height={65}
-          priority
-          loading="eager"
-          style={{ width: "auto", height: "auto", maxWidth: "180px" }}
-        />
+        <Image src="/logo.png" alt="Straight2Guide" width={180} height={65} priority />
       </div>
 
       {/* Search bubble */}

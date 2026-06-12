@@ -20,7 +20,7 @@ export function RegionCard({ region }: RegionCardProps) {
       href={`/guides?country=${encodeURIComponent(region.country.toLowerCase())}`}
       className="group block overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#0E7A45] focus-visible:outline-none"
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         {hero ? (
           <Image
             src={hero.src}

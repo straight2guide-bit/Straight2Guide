@@ -94,7 +94,7 @@ export function GlobeVisual() {
       raf = requestAnimationFrame(loop);
     }
 
-    fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+    fetch("/world-110m.json")
       .then((r) => r.json())
       .then((data) => {
         worldData = data as WorldTopology;
