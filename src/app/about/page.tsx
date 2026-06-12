@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle, Users, Globe, Leaf } from "lucide-react";
+import { CheckCircle, Users, Globe, Leaf, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -54,12 +54,25 @@ export default function AboutPage() {
   return (
     <main className="flex flex-1 flex-col">
       {/* Hero */}
-      <section className="bg-[#0E7A45] px-4 py-20 text-center md:px-8">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="mb-4 text-4xl font-bold text-white">
+      <section className="relative overflow-hidden px-4 py-24 text-center md:px-8 md:py-32">
+        <Image
+          src="/rainbow-mountain-group.jpg"
+          alt="Group of travelers with a local guide at Rainbow Mountain, Peru"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        {/* Scrim for text contrast */}
+        <div className="from-dark/70 via-dark/50 to-brand-green/60 absolute inset-0 bg-gradient-to-b" />
+        <div className="relative mx-auto max-w-3xl">
+          <p className="mb-4 text-xs font-semibold tracking-[0.18em] text-white/80 uppercase">
+            About Straight2Guide
+          </p>
+          <h1 className="font-heading mb-5 text-4xl font-semibold tracking-tight text-balance text-white md:text-5xl">
             Fair travel, straight to the guide.
           </h1>
-          <p className="text-lg text-white/80">
+          <p className="text-lg leading-relaxed text-pretty text-white/85">
             We built Straight2Guide because great travel doesn&apos;t need middlemen. Local guides
             deserve fair pay. Travelers deserve authentic experiences. We make both possible.
           </p>
@@ -71,8 +84,13 @@ export default function AboutPage() {
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:items-center">
             <div>
-              <h2 className="mb-6 text-2xl font-bold text-[#0F172A]">Our Story</h2>
-              <div className="flex flex-col gap-4 leading-relaxed text-slate-600">
+              <p className="text-brand-green mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+                Who we are
+              </p>
+              <h2 className="font-heading text-dark mb-6 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+                Our Story
+              </h2>
+              <div className="flex flex-col gap-4 text-base leading-relaxed text-pretty text-slate-600">
                 <p>
                   Straight2Guide was born from a simple observation: the best travel moments happen
                   when you&apos;re with someone who genuinely loves where they live — a local guide
@@ -85,12 +103,12 @@ export default function AboutPage() {
                   directly with guides. Guides set their own prices, own their schedule, and build
                   their reputation on their own terms.
                 </p>
-                <p className="font-medium text-[#0E7A45]">
+                <p className="text-brand-green font-medium">
                   Fair travel is better travel — for people, communities, and the planet.
                 </p>
               </div>
             </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-900/5">
               <Image
                 src="/namibia-dunes.jpg"
                 alt="Hikers on Namibia sand dunes"
@@ -106,16 +124,26 @@ export default function AboutPage() {
       {/* How it works */}
       <section className="px-4 py-16 md:px-8">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-2 text-center text-2xl font-bold text-[#0F172A]">How it works</h2>
-          <p className="mb-10 text-center text-slate-500">Three steps to an authentic journey.</p>
+          <div className="mb-10 text-center">
+            <p className="text-brand-green mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+              The process
+            </p>
+            <h2 className="font-heading text-dark mb-3 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+              How it works
+            </h2>
+            <p className="text-slate-500">Three steps to an authentic journey.</p>
+          </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {steps.map((s) => (
-              <div key={s.n} className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#0E7A45] text-lg font-bold text-white">
+              <div
+                key={s.n}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="bg-brand-green/10 text-brand-green mb-4 flex size-10 items-center justify-center rounded-full text-lg font-bold">
                   {s.n}
                 </div>
-                <h3 className="mb-2 font-semibold text-[#0F172A]">{s.title}</h3>
-                <p className="text-sm leading-relaxed text-slate-600">{s.body}</p>
+                <h3 className="text-dark mb-2 font-semibold">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-pretty text-slate-600">{s.body}</p>
               </div>
             ))}
           </div>
@@ -125,14 +153,26 @@ export default function AboutPage() {
       {/* Values */}
       <section className="bg-slate-50 px-4 py-16 md:px-8">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-10 text-center text-2xl font-bold text-[#0F172A]">What we stand for</h2>
+          <div className="mb-10 text-center">
+            <p className="text-brand-green mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+              Our values
+            </p>
+            <h2 className="font-heading text-dark text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+              What we stand for
+            </h2>
+          </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {values.map(({ icon: Icon, label, body }) => (
-              <div key={label} className="flex gap-4 rounded-xl bg-white p-6 shadow-sm">
-                <Icon className="mt-0.5 size-6 shrink-0 text-[#0E7A45]" />
+              <div
+                key={label}
+                className="flex gap-4 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="bg-brand-green/10 flex size-11 shrink-0 items-center justify-center rounded-lg">
+                  <Icon className="text-brand-green size-5" />
+                </div>
                 <div>
-                  <p className="mb-1 font-semibold text-[#0F172A]">{label}</p>
-                  <p className="text-sm leading-relaxed text-slate-600">{body}</p>
+                  <p className="text-dark mb-1 font-semibold">{label}</p>
+                  <p className="text-sm leading-relaxed text-pretty text-slate-600">{body}</p>
                 </div>
               </div>
             ))}
@@ -143,22 +183,26 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="px-4 py-16 text-center md:px-8">
         <div className="mx-auto max-w-xl">
-          <h2 className="mb-4 text-2xl font-bold text-[#0F172A]">Ready to explore?</h2>
-          <p className="mb-8 text-slate-500">
+          <h2 className="font-heading text-dark mb-4 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+            Ready to explore?
+          </h2>
+          <p className="mb-8 leading-relaxed text-pretty text-slate-500">
             Browse destinations and connect directly with a verified local guide.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/explore"
-              className="rounded-full bg-[#0E7A45] px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
+              className="bg-brand-green focus-visible:ring-brand-green inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0c6438] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               Start Exploring
+              <ArrowRight className="size-4" aria-hidden />
             </Link>
             <Link
               href="/become-a-guide"
-              className="rounded-full border border-[#0E7A45] px-6 py-3 text-sm font-semibold text-[#0E7A45] hover:bg-[#0E7A45]/5"
+              className="border-brand-green bg-brand-green/10 text-brand-green hover:bg-brand-green/20 focus-visible:ring-brand-green inline-flex items-center justify-center gap-2 rounded-full border px-7 py-3.5 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
             >
               Become a Guide
+              <ArrowRight className="size-4" aria-hidden />
             </Link>
           </div>
         </div>
