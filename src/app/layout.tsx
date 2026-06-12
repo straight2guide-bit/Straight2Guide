@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Fraunces } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers/Providers";
 import { SidebarNav } from "@/components/navigation/SidebarNav";
@@ -11,6 +11,14 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+});
+
+// Editorial display serif for headings (paired with Inter for body).
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  axes: ["opsz", "SOFT"],
 });
 
 export const metadata: Metadata = {
@@ -31,7 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="en"
-      className={cn("font-sans antialiased", inter.variable)}
+      className={cn("font-sans antialiased", inter.variable, fraunces.variable)}
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col">

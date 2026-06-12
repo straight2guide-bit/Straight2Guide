@@ -58,12 +58,14 @@ export async function FeaturedSection() {
 
 function RowHeader({ title, href, cta }: { title: string; href?: string; cta?: string }) {
   return (
-    <div className="mb-5 flex items-end justify-between">
-      <h2 className="text-2xl font-bold text-[#0F172A]">{title}</h2>
+    <div className="mb-5 flex items-end justify-between gap-4">
+      <h2 className="font-heading text-dark text-2xl font-semibold tracking-tight md:text-3xl">
+        {title}
+      </h2>
       {href && cta && (
         <Link
           href={href}
-          className="text-sm font-semibold text-[#0E7A45] transition-colors hover:text-[#0c6438] hover:underline"
+          className="text-brand-green shrink-0 text-sm font-semibold transition-colors hover:text-[#0c6438] hover:underline"
         >
           {cta}
         </Link>

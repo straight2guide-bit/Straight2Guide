@@ -27,23 +27,30 @@ const reviews = [
 
 export function ReviewsSection() {
   return (
-    <section className="bg-slate-50 py-16">
-      <h2 className="mb-8 px-4 text-2xl font-bold text-[#0F172A] md:px-8">Reviews</h2>
+    <section className="py-16">
+      <div className="mb-8 px-4 md:px-8">
+        <p className="text-brand-green mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+          Loved by travelers
+        </p>
+        <h2 className="font-heading text-dark text-3xl font-semibold tracking-tight md:text-4xl">
+          Reviews
+        </h2>
+      </div>
       <div className="flex snap-x gap-6 overflow-x-auto px-4 pb-4 md:px-8">
         {reviews.map((review) => (
           <article
             key={review.id}
-            className="w-[280px] max-w-[340px] flex-shrink-0 snap-start rounded-xl border border-slate-100 bg-white p-6 shadow-sm"
+            className="w-[280px] max-w-[340px] flex-shrink-0 snap-start rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <p className="mb-4 text-sm leading-relaxed text-slate-600">
+            <p className="mb-5 text-base leading-relaxed text-pretty text-slate-700">
               &ldquo;{review.quote}&rdquo;
             </p>
             <div className="flex items-center gap-3">
-              <div className="flex size-10 flex-shrink-0 items-center justify-center rounded-full bg-[#0E7A45]/10 text-sm font-semibold text-[#0E7A45]">
+              <div className="bg-brand-green/10 text-brand-green flex size-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold">
                 {review.initials}
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#0F172A]">{review.name}</p>
+                <p className="text-dark text-sm font-semibold">{review.name}</p>
                 <p className="text-xs text-slate-500">{review.role}</p>
               </div>
             </div>
