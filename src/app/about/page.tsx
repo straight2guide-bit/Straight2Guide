@@ -56,15 +56,15 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative overflow-hidden px-4 py-24 text-center md:px-8 md:py-32">
         <Image
-          src="/rainbow-mountain-group.jpg"
-          alt="Group of travelers with a local guide at Rainbow Mountain, Peru"
+          src="/country-heroes/chile-v1.jpg"
+          alt="Jagged peaks of Torres del Paine above a glacial lagoon, Patagonia, Chile"
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
         {/* Scrim for text contrast */}
-        <div className="from-dark/70 via-dark/50 to-brand-green/60 absolute inset-0 bg-gradient-to-b" />
+        <div className="from-dark/75 via-dark/55 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
         <div className="relative mx-auto max-w-3xl">
           <p className="mb-4 text-xs font-semibold tracking-[0.18em] text-white/80 uppercase">
             About Straight2Guide
