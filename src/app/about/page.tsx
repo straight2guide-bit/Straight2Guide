@@ -54,7 +54,7 @@ export default function AboutPage() {
   return (
     <main className="flex flex-1 flex-col">
       {/* Hero */}
-      <section className="relative overflow-hidden px-4 py-24 text-center md:px-8 md:py-32">
+      <section className="relative overflow-hidden px-4 py-16 text-center md:px-8 md:py-20">
         <Image
           src="/guide-traveler-handshake.jpg"
           alt="A local guide and a traveler smiling and shaking hands at a forest campsite"
