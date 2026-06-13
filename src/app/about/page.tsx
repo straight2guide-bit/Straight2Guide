@@ -63,16 +63,17 @@ export default function AboutPage() {
           sizes="100vw"
           className="object-cover"
         />
-        {/* Scrim for text contrast — this image is bright/pastel, so darken evenly. */}
-        <div className="from-dark/70 via-dark/60 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
+        {/* Scrims for text contrast — this image is bright/pastel. */}
+        <div className="from-dark/75 via-dark/60 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_45%,rgba(15,23,42,0.55),transparent_72%)]" />
         <div className="relative mx-auto max-w-3xl">
-          <p className="mb-4 text-xs font-semibold tracking-[0.18em] text-white/80 uppercase">
+          <p className="mb-4 text-xs font-semibold tracking-[0.18em] text-white/90 uppercase [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
             About Straight2Guide
           </p>
-          <h1 className="font-heading mb-5 text-4xl font-semibold tracking-tight text-balance text-white md:text-5xl">
+          <h1 className="font-heading mb-5 text-4xl font-semibold tracking-tight text-balance text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] md:text-5xl">
             Fair travel, straight to the guide.
           </h1>
-          <p className="text-lg leading-relaxed text-pretty text-white/85">
+          <p className="text-lg leading-relaxed text-pretty text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
             We built Straight2Guide because great travel doesn&apos;t need middlemen. Local guides
             deserve fair pay. Travelers deserve authentic experiences. We make both possible.
           </p>
