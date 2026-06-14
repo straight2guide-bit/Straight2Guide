@@ -67,6 +67,14 @@ export default function AboutPage() {
         <div className="from-dark/75 via-dark/60 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_45%,rgba(15,23,42,0.55),transparent_72%)]" />
         <div className="relative mx-auto max-w-3xl">
+          <Image
+            src="/logo-white-notext.png"
+            alt="Straight2Guide"
+            width={80}
+            height={80}
+            priority
+            className="mx-auto mb-6 h-16 w-16 md:h-20 md:w-20"
+          />
           <p className="mb-4 text-xs font-semibold tracking-[0.18em] text-white/90 uppercase [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
             About Straight2Guide
           </p>
