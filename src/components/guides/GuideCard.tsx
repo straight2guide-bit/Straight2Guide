@@ -140,7 +140,7 @@ export function GuideCard({ guide }: GuideCardProps) {
                 <span className="text-dark text-xl font-bold">${price_per_vehicle}</span>
                 <span className="flex items-center gap-1 text-xs text-slate-400">
                   <Car className="size-3.5" aria-hidden />
-                  per vehicle
+                  guide with car
                 </span>
               </div>
             )}
