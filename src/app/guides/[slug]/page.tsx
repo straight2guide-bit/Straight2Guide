@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ArrowLeft,
   ArrowRight,
   MapPin,
   Globe,
@@ -23,6 +22,7 @@ import { getGuideBySlug } from "@/lib/guides/guideProfile";
 import { VerifiedBadge } from "@/components/guides/VerifiedBadge";
 import { getCountryHero } from "@/config/countryHeroes";
 import { destinationMenu } from "@/config/destinations";
+import { GuideBackLink } from "@/components/guides/GuideBackLink";
 
 // Build the "back" target from the guide's own country so it always returns to
 // that country's guide page (continent page + country filter), never the bare
@@ -137,13 +137,10 @@ export default async function GuideProfilePage({ params }: { params: Promise<{ s
         )}
 
         <div className="relative mx-auto w-full max-w-5xl px-4 pt-6 pb-10 md:px-8 md:pt-8 md:pb-14">
-          <Link
-            href={back.href}
+          <GuideBackLink
+            fallbackHref={back.href}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-white/85 transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:text-white"
-          >
-            <ArrowLeft className="size-4" aria-hidden />
-            {back.label}
-          </Link>
+          />
 
           <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-end">
             <div className="relative size-28 shrink-0 overflow-hidden rounded-2xl shadow-lg ring-4 ring-white/25 md:size-32">
