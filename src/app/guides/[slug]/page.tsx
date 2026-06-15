@@ -139,7 +139,7 @@ export default async function GuideProfilePage({ params }: { params: Promise<{ s
         <div className="relative mx-auto w-full max-w-5xl px-4 pt-6 pb-10 md:px-8 md:pt-8 md:pb-14">
           <GuideBackLink
             fallbackHref={back.href}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-white/85 transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3.5 py-2 text-sm font-medium text-white ring-1 ring-white/25 backdrop-blur-sm transition hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:outline-none"
           />
 
           <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-end">
