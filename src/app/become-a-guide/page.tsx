@@ -62,7 +62,7 @@ export default function BecomeAGuidePage() {
       <section className="relative overflow-hidden px-4 py-16 text-center md:px-8 md:py-20">
         <Image
           src="/become-a-guide-hero.jpg"
-          alt="A local guide explaining to travelers on a rainforest nature walk"
+          alt="A guide crossing a log suspension bridge over a rushing jungle river"
           fill
           priority
           sizes="100vw"
