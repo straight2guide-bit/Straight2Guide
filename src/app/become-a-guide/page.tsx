@@ -66,7 +66,7 @@ export default function BecomeAGuidePage() {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-[center_30%]"
         />
         {/* Scrims for text contrast over the photo. */}
         <div className="from-dark/75 via-dark/60 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
