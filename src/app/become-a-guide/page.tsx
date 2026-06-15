@@ -61,12 +61,12 @@ export default function BecomeAGuidePage() {
       {/* Hero */}
       <section className="relative overflow-hidden px-4 py-16 text-center md:px-8 md:py-20">
         <Image
-          src="/guide-andean.jpg"
-          alt="A local Andean guide in the Peruvian highlands"
+          src="/become-a-guide-hero.jpg"
+          alt="Trekkers on a mountain trail heading toward misty snow-capped peaks"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-top"
+          className="object-cover"
         />
         {/* Scrims for text contrast over the photo. */}
         <div className="from-dark/75 via-dark/60 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
@@ -84,11 +84,11 @@ export default function BecomeAGuidePage() {
             For Guides
           </p>
           <h1 className="font-heading mb-5 text-4xl font-semibold tracking-tight text-balance text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] md:text-5xl">
-            Turn your local expertise into a thriving business.
+            Guide on your terms.
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-pretty text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
-            Join guides in Africa, Asia, Europe, and the Americas who are earning more, working
-            flexibly, and sharing their home with travelers who truly want to experience it.
+            Earn more, work flexibly, and meet travelers who genuinely want your local expertise —
+            no middlemen, ever.
           </p>
           <Link
             href="/auth/sign-up"
