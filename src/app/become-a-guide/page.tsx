@@ -62,11 +62,11 @@ export default function BecomeAGuidePage() {
       <section className="relative overflow-hidden px-4 py-16 text-center md:px-8 md:py-20">
         <Image
           src="/become-a-guide-hero.jpg"
-          alt="Trekkers on a mountain trail heading toward misty snow-capped peaks"
+          alt="A local wildlife guide standing with white rhinos on the Kenyan savanna"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_30%]"
+          className="object-cover object-center"
         />
         {/* Scrims for text contrast over the photo. */}
         <div className="from-dark/75 via-dark/60 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
