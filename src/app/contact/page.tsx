@@ -19,10 +19,15 @@ export default function ContactPage() {
   return (
     <main className="flex flex-1 flex-col">
       {/* Header */}
-      <section className="bg-slate-50 px-4 pt-16 pb-10 md:px-8">
+      <section className="border-b border-slate-200 bg-slate-50 px-4 pt-12 pb-8 md:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="mb-3 text-3xl font-bold text-[#0F172A]">Get in touch</h1>
-          <p className="text-slate-500">
+          <p className="text-brand-green mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+            Contact
+          </p>
+          <h1 className="font-heading text-dark mb-3 text-3xl font-semibold tracking-tight text-balance">
+            Get in touch
+          </h1>
+          <p className="text-pretty text-slate-500">
             We typically reply within one business day. For guide-related questions, please include
             your guide ID or application reference if you have one.
           </p>
@@ -39,10 +44,10 @@ export default function ContactPage() {
               <p className="text-sm text-slate-600">
                 Our contact form is launching shortly. In the meantime, reach us directly at{" "}
                 <a
-                  href="mailto:hello@straight2guide.com"
+                  href="mailto:straight2guide@gmail.com"
                   className="font-medium text-[#0E7A45] underline underline-offset-2"
                 >
-                  hello@straight2guide.com
+                  straight2guide@gmail.com
                 </a>
               </p>
             </div>
@@ -129,10 +134,10 @@ export default function ContactPage() {
             <span>
               Or email us directly:{" "}
               <a
-                href="mailto:hello@straight2guide.com"
+                href="mailto:straight2guide@gmail.com"
                 className="font-medium text-[#0E7A45] underline underline-offset-2"
               >
-                hello@straight2guide.com
+                straight2guide@gmail.com
               </a>
             </span>
           </div>
