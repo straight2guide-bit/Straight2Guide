@@ -86,17 +86,10 @@ export default function BecomeAGuidePage() {
           <h1 className="font-heading mb-5 text-4xl font-semibold tracking-tight text-balance text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] md:text-5xl">
             Guide on your terms.
           </h1>
-          <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-pretty text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
+          <p className="text-lg leading-relaxed text-pretty text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
             Earn more, work flexibly, and meet travelers who genuinely want your local expertise —
             no middlemen, ever.
           </p>
-          <Link
-            href="/auth/sign-up"
-            className="bg-brand-green focus-visible:ring-brand-green inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0c6438] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-          >
-            Apply now — it&apos;s free
-            <ArrowRight className="size-4" aria-hidden />
-          </Link>
         </div>
       </section>
 
