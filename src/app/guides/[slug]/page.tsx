@@ -22,6 +22,22 @@ import {
 import { getGuideBySlug } from "@/lib/guides/guideProfile";
 import { VerifiedBadge } from "@/components/guides/VerifiedBadge";
 import { getCountryHero } from "@/config/countryHeroes";
+import { destinationMenu } from "@/config/destinations";
+
+// Build the "back" target from the guide's own country so it always returns to
+// that country's guide page (continent page + country filter), never the bare
+// ungated /guides list. Works even on a directly-opened/shared profile link.
+function backTarget(country: string | null | undefined): { href: string; label: string } {
+  if (!country) return { href: "/guides", label: "Back to guides" };
+  const lc = country.toLowerCase();
+  const continent = Object.entries(destinationMenu).find(([, list]) =>
+    list.some((c) => c.toLowerCase() === lc)
+  )?.[0];
+  const href = continent
+    ? `/guides/${continent.toLowerCase().replace(/\s+/g, "-")}?country=${encodeURIComponent(lc)}`
+    : `/guides?country=${encodeURIComponent(lc)}`;
+  return { href, label: `Back to ${country} guides` };
+}
 
 // "born-in-region" -> "Born In Region"; "honeymooners" -> "Honeymooners"
 function humanize(value: string): string {
@@ -73,6 +89,7 @@ export default async function GuideProfilePage({ params }: { params: Promise<{ s
   const { guide, trips } = result;
   const where = guide.region ? `${guide.region.name}, ${guide.region.country}` : guide.location;
   const hero = guide.region ? getCountryHero(guide.region.country) : undefined;
+  const back = backTarget(guide.region?.country);
 
   // "Good to know" facts, rendered only when present.
   const facts: { icon: typeof Car; label: string; value: string }[] = [];
@@ -121,11 +138,11 @@ export default async function GuideProfilePage({ params }: { params: Promise<{ s
 
         <div className="relative mx-auto w-full max-w-5xl px-4 pt-6 pb-10 md:px-8 md:pt-8 md:pb-14">
           <Link
-            href="/guides"
+            href={back.href}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-white/85 transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:text-white"
           >
             <ArrowLeft className="size-4" aria-hidden />
-            Back to guides
+            {back.label}
           </Link>
 
           <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-end">
