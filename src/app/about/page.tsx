@@ -65,7 +65,7 @@ export default function AboutPage() {
         />
         {/* Scrims for text contrast — this image is bright/pastel. */}
         <div className="from-dark/75 via-dark/60 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_45%,rgba(15,23,42,0.55),transparent_72%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_45%,rgba(15,23,42,0.55),rgba(15,23,42,0)_72%)]" />
         <div className="relative mx-auto max-w-3xl">
           <Image
             src="/logo-white-notext.png"
