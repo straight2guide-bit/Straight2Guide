@@ -62,7 +62,7 @@ export default function BecomeAGuidePage() {
       <section className="relative overflow-hidden px-4 py-16 text-center md:px-8 md:py-20">
         <Image
           src="/become-a-guide-hero.jpg"
-          alt="A local wildlife guide standing with white rhinos on the Kenyan savanna"
+          alt="A local guide explaining to travelers on a rainforest nature walk"
           fill
           priority
           sizes="100vw"
