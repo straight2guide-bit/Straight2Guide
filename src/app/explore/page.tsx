@@ -31,7 +31,7 @@ export default async function ExplorePage() {
   return (
     <main className="flex flex-1 flex-col">
       {/* Hero + search */}
-      <section className="relative overflow-hidden px-4 py-20 text-center md:px-8 md:py-28">
+      <section className="relative overflow-hidden px-4 py-16 text-center md:px-8 md:py-20">
         <Image
           src="/country-heroes/kenya-v2.jpg"
           alt="Sunset over the savanna"
@@ -43,6 +43,14 @@ export default async function ExplorePage() {
         <div className="from-dark/75 via-dark/55 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_45%,rgba(15,23,42,0.5),rgba(15,23,42,0)_72%)]" />
         <div className="relative mx-auto max-w-3xl">
+          <Image
+            src="/logo-white-notext.png"
+            alt="Straight2Guide"
+            width={80}
+            height={80}
+            priority
+            className="mx-auto mb-6 h-16 w-16 md:h-20 md:w-20"
+          />
           <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-white/85 uppercase [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
             Explore
           </p>
