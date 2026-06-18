@@ -186,3 +186,150 @@ values
    '[{"day":1,"title":"Arrival","description":"Transfer to the southern plains.","accommodation":"Ndutu Camp","meals":"D"},{"day":2,"title":"Calving plains","description":"Full day among the herds and predators.","accommodation":"Ndutu Camp","meals":"B/L/D"},{"day":3,"title":"Final morning","description":"Dawn drive then departure.","accommodation":null,"meals":"B"}]'::jsonb,
    'published', false)
 on conflict (id) do nothing;
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Explore-page expansion (2026-06-17)
+-- More regions per country so /explore shows multiple regions per row, each with
+-- a verified guide so the "from €X / day" badge has a price to display.
+-- Country values match the existing continent pages (Brazil → south-america,
+-- Kenya/Tanzania → africa). Region images live in src/config/regionHeroes.ts.
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- Additional regions ───────────────────────────────────────────────────────────
+insert into public.regions (id, name, slug, country, description, best_season, sustainability_note, is_active) values
+  ('a0000000-0000-4000-8000-000000000004', 'Amazon Rainforest', 'amazon-rainforest', 'Brazil',
+   'The world''s largest rainforest — a labyrinth of rivers, flooded forest and extraordinary biodiversity.',
+   'Jun–Nov (drier season)', 'Guided visits fund river communities who protect the forest.', true),
+  ('a0000000-0000-4000-8000-000000000005', 'Iguaçu Falls', 'iguacu-falls', 'Brazil',
+   'A thundering chain of 275 waterfalls on the edge of the Atlantic Forest.',
+   'Mar–May & Aug–Oct', 'Park fees support Atlantic Forest conservation.', true),
+  ('a0000000-0000-4000-8000-000000000006', 'Bonito', 'bonito', 'Brazil',
+   'Crystal-clear rivers and limestone caves in Brazil''s eco-tourism capital.',
+   'Apr–Sep', 'Strict visitor quotas keep the rivers pristine.', true),
+  ('a0000000-0000-4000-8000-000000000007', 'Amboseli', 'amboseli', 'Kenya',
+   'Big-tusked elephants beneath the snow-capped peak of Kilimanjaro.',
+   'Jun–Oct & Jan–Feb', 'Maasai-owned conservancies share tourism revenue.', true),
+  ('a0000000-0000-4000-8000-000000000008', 'Tsavo', 'tsavo', 'Kenya',
+   'One of Africa''s largest wildernesses, famous for its red-dust elephants.',
+   'Jun–Oct', 'Ranger partnerships fund anti-poaching work.', true),
+  ('a0000000-0000-4000-8000-000000000009', 'Lake Nakuru', 'lake-nakuru', 'Kenya',
+   'A soda lake rimmed with flamingos and a stronghold for endangered rhino.',
+   'Jun–Mar', 'Entry fees support the rhino sanctuary.', true),
+  ('a0000000-0000-4000-8000-00000000000a', 'Ngorongoro', 'ngorongoro', 'Tanzania',
+   'A vast volcanic caldera holding one of the densest concentrations of wildlife on earth.',
+   'Jun–Oct', 'Revenue supports Maasai communities living alongside the wildlife.', true),
+  ('a0000000-0000-4000-8000-00000000000b', 'Tarangire', 'tarangire', 'Tanzania',
+   'Ancient baobabs and great elephant herds along a life-giving river.',
+   'Jun–Oct', 'Community concessions protect wildlife corridors.', true),
+  ('a0000000-0000-4000-8000-00000000000c', 'Zanzibar', 'zanzibar', 'Tanzania',
+   'Spice-island beaches, coral reefs and the lanes of historic Stone Town.',
+   'Jun–Oct & Dec–Feb', 'Local guiding keeps tourism income on the island.', true)
+on conflict (id) do nothing;
+
+-- One verified guide per new region (so each region has a "from €X / day" price)
+insert into public.guide_profiles
+  (id, user_id, display_name, slug, bio, location, region_id, profile_photo_url,
+   years_experience, languages, specialties, certifications,
+   verification_status, is_featured,
+   price_per_person, price_per_vehicle, vehicle_capacity,
+   transport_options, certification_types, suitable_for, local_origin, sustainability_tags)
+values
+  ('b0000000-0000-4000-8000-000000000007', null, 'Rafael Lima', 'rafael-lima',
+   'Raised on the Rio Negro, Rafael guides multi-day river journeys deep into the flooded forest, reading the water and the wildlife with a local''s eye.',
+   'Manaus, Brazil', 'a0000000-0000-4000-8000-000000000004', null,
+   11, array['portuguese','english'], array['wildlife','birdwatching'],
+   'Licensed Amazon guide; Wilderness First Aid.',
+   'verified', false,
+   150, 260, 6,
+   array['boat','private-vehicle'], array['licensed-guide','first-aid'],
+   array['families','photographers','researchers'], 'lives-locally',
+   array['community-based','low-impact']),
+
+  ('b0000000-0000-4000-8000-000000000008', null, 'Carla Mendes', 'carla-mendes',
+   'Carla knows every trail and viewpoint around the falls and times each visit for the best light and the fewest crowds.',
+   'Foz do Iguaçu, Brazil', 'a0000000-0000-4000-8000-000000000005', null,
+   8, array['portuguese','english','spanish'], array['hiking','photography','cultural'],
+   'Licensed regional guide; eco-tourism certified.',
+   'verified', false,
+   120, 200, 4,
+   array['private-vehicle'], array['licensed-guide','eco-certified'],
+   array['families','seniors','photographers'], 'lives-locally',
+   array['locally-owned','low-impact']),
+
+  ('b0000000-0000-4000-8000-000000000009', null, 'Tiago Ferreira', 'tiago-ferreira',
+   'A diver and naturalist, Tiago leads snorkelling floats down Bonito''s glass-clear rivers and into its cathedral caves.',
+   'Bonito, Brazil', 'a0000000-0000-4000-8000-000000000006', null,
+   9, array['portuguese','english'], array['wildlife','birdwatching','cultural'],
+   'Licensed guide; eco-certified.',
+   'verified', false,
+   135, 230, 5,
+   array['private-vehicle','boat'], array['licensed-guide','eco-certified'],
+   array['families','solo','birders'], 'born-in-region',
+   array['conservation-focused','plastic-conscious']),
+
+  ('b0000000-0000-4000-8000-00000000000a', null, 'Daniel Lekuta', 'daniel-lekuta',
+   'A Maasai guide from the Amboseli plains, Daniel pairs deep knowledge of the great elephant herds with classic Kilimanjaro backdrops.',
+   'Amboseli, Kenya', 'a0000000-0000-4000-8000-000000000007', null,
+   13, array['english','swahili','maa'], array['safari','wildlife','cultural'],
+   'KPSGA Bronze guide; first aid certified.',
+   'verified', false,
+   170, 300, 6,
+   array['4x4','airport-pickup'], array['licensed-guide','first-aid','community-guide'],
+   array['families','photographers','honeymooners'], 'indigenous',
+   array['community-based','wildlife-ethical']),
+
+  ('b0000000-0000-4000-8000-00000000000b', null, 'Esther Mwangi', 'esther-mwangi',
+   'Esther specialises in Tsavo''s vast, wild landscapes and its famous red elephants, with a strong focus on conservation.',
+   'Voi, Kenya', 'a0000000-0000-4000-8000-000000000008', null,
+   10, array['english','swahili'], array['safari','wildlife'],
+   'Licensed safari guide; conservation-trained.',
+   'verified', false,
+   150, 270, 6,
+   array['4x4'], array['licensed-guide','conservation-trained'],
+   array['solo','families','researchers'], 'lives-locally',
+   array['conservation-focused','supports-local']),
+
+  ('b0000000-0000-4000-8000-00000000000c', null, 'Peter Otieno', 'peter-otieno',
+   'A birder at heart, Peter knows Nakuru''s flamingo flocks and rhino haunts and the best hours to find them.',
+   'Nakuru, Kenya', 'a0000000-0000-4000-8000-000000000009', null,
+   7, array['english','swahili'], array['wildlife','birdwatching','photography'],
+   'Licensed guide; eco-tourism certified.',
+   'verified', false,
+   140, 240, 5,
+   array['4x4','private-vehicle'], array['licensed-guide','eco-certified'],
+   array['birders','photographers','seniors'], 'lives-locally',
+   array['locally-owned','conservation-focused']),
+
+  ('b0000000-0000-4000-8000-00000000000d', null, 'Amani Mushi', 'amani-mushi',
+   'Amani has guided the Ngorongoro highlands for over a decade and knows exactly when to descend into the crater for the best game viewing.',
+   'Karatu, Tanzania', 'a0000000-0000-4000-8000-00000000000a', null,
+   14, array['english','swahili'], array['safari','wildlife','photography'],
+   'Senior safari guide; Wilderness First Responder.',
+   'verified', false,
+   200, 350, 7,
+   array['4x4','airport-pickup'], array['licensed-guide','first-aid'],
+   array['photographers','families','luxury'], 'born-in-region',
+   array['supports-local','low-impact']),
+
+  ('b0000000-0000-4000-8000-00000000000e', null, 'Lucy Massawe', 'lucy-massawe',
+   'Lucy loves Tarangire''s baobab country and its elephants, and runs relaxed, small-group drives away from the busier parks.',
+   'Arusha, Tanzania', 'a0000000-0000-4000-8000-00000000000b', null,
+   8, array['english','swahili'], array['safari','wildlife','birdwatching'],
+   'Licensed guide; eco-certified.',
+   'verified', false,
+   160, 280, 6,
+   array['4x4'], array['licensed-guide','eco-certified','community-guide'],
+   array['families','birders','solo'], 'community-based',
+   array['community-based','wildlife-ethical']),
+
+  ('b0000000-0000-4000-8000-00000000000f', null, 'Salim Juma', 'salim-juma',
+   'Born in Stone Town, Salim guides the island''s history, spice farms and reefs, and the quiet corners most visitors miss.',
+   'Stone Town, Zanzibar', 'a0000000-0000-4000-8000-00000000000c', null,
+   12, array['english','swahili'], array['cultural','photography'],
+   'Licensed island guide; first aid certified.',
+   'verified', false,
+   110, 190, 4,
+   array['boat','private-vehicle'], array['licensed-guide','first-aid'],
+   array['families','honeymooners','solo'], 'born-in-region',
+   array['locally-owned','plastic-conscious','supports-local'])
+on conflict (id) do nothing;

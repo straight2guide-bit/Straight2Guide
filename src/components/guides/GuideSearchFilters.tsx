@@ -302,8 +302,8 @@ export function GuideSearchFilters({ regions }: GuideSearchFiltersProps) {
             }}
           />
           <div className="mt-1 flex justify-between text-xs text-slate-500">
-            <span>${guidePriceLocal[0]}</span>
-            <span>${guidePriceLocal[1]}</span>
+            <span>€{guidePriceLocal[0]}</span>
+            <span>€{guidePriceLocal[1]}</span>
           </div>
         </FilterSection>
 
@@ -321,8 +321,8 @@ export function GuideSearchFilters({ regions }: GuideSearchFiltersProps) {
             }}
           />
           <div className="mt-1 flex justify-between text-xs text-slate-500">
-            <span>${vehiclePriceLocal[0]}</span>
-            <span>${vehiclePriceLocal[1]}</span>
+            <span>€{vehiclePriceLocal[0]}</span>
+            <span>€{vehiclePriceLocal[1]}</span>
           </div>
         </FilterSection>
 

@@ -1,61 +1,74 @@
 import type { Metadata } from "next";
-import { Search, MapPin } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { destinationMenu } from "@/config/destinations";
+import { Search, Trees, Bird, Mountain, Camera, Leaf, Landmark, ArrowRight } from "lucide-react";
+import { getRegionsByCountry } from "@/lib/explore/regions";
+import { RegionTile } from "@/components/explore/RegionTile";
 
 export const metadata: Metadata = {
   title: "Explore Destinations",
   description:
-    "Browse trips and local guides across Africa, Asia, Europe, the Americas, and Oceania. Find authentic, verified travel experiences.",
+    "Browse destinations by country and region, and connect directly with verified local guides you can book by the day or with a vehicle.",
 };
 
-const continentColors: Record<string, string> = {
-  Africa: "bg-amber-50 border-amber-200 text-amber-800",
-  Asia: "bg-rose-50 border-rose-200 text-rose-800",
-  Europe: "bg-blue-50 border-blue-200 text-blue-800",
-  Oceania: "bg-cyan-50 border-cyan-200 text-cyan-800",
-  "Central America": "bg-orange-50 border-orange-200 text-orange-800",
-  "South America": "bg-green-50 border-green-200 text-green-800",
-  "North America": "bg-violet-50 border-violet-200 text-violet-800",
-};
+// Static + ISR: regions/prices change rarely and the data is read cookie-free.
+export const revalidate = 3600;
 
-function slugify(s: string) {
-  return s.toLowerCase().replace(/\s+/g, "-");
-}
+// Curated entry points by experience, linking into the specialty-filtered guide
+// search. Values match the search's SPECIALTY_OPTIONS.
+const EXPERIENCES = [
+  { label: "Wildlife", icon: Trees },
+  { label: "Birdwatching", icon: Bird },
+  { label: "Hiking", icon: Mountain },
+  { label: "Photography", icon: Camera },
+  { label: "Conservation", icon: Leaf },
+  { label: "Local Culture", icon: Landmark },
+];
 
-export default async function ExplorePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string; continent?: string }>;
-}) {
-  const { q: query = "", continent: continentFilter = "" } = await searchParams;
+export default async function ExplorePage() {
+  const countryGroups = await getRegionsByCountry();
 
   return (
     <main className="flex flex-1 flex-col">
-      {/* Header */}
-      <section className="border-b border-slate-100 bg-white px-4 pt-16 pb-8 md:px-8">
-        <div className="mx-auto max-w-5xl">
-          <h1 className="mb-2 text-3xl font-bold text-[#0F172A]">Explore Destinations</h1>
-          <p className="mb-6 text-slate-500">
-            Find verified local guides for authentic experiences around the world.
+      {/* Hero + search */}
+      <section className="relative overflow-hidden px-4 py-20 text-center md:px-8 md:py-28">
+        <Image
+          src="/country-heroes/kenya-v2.jpg"
+          alt="Sunset over the savanna"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="from-dark/75 via-dark/55 to-brand-green/70 absolute inset-0 bg-gradient-to-b" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_60%_at_50%_45%,rgba(15,23,42,0.5),rgba(15,23,42,0)_72%)]" />
+        <div className="relative mx-auto max-w-3xl">
+          <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-white/85 uppercase [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
+            Explore
           </p>
-
-          {/* Search */}
+          <h1 className="font-heading mb-4 text-4xl font-semibold tracking-tight text-balance text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] md:text-5xl">
+            Find your next journey.
+          </h1>
+          <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-pretty text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
+            Browse by country and region, then connect directly with verified local guides — book
+            them by the day or with a vehicle. Your trip, your pace, no middlemen.
+          </p>
           <form
             method="GET"
-            className="flex max-w-lg items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 shadow-sm"
+            action="/guides"
+            className="mx-auto flex max-w-lg items-center gap-2 rounded-full border border-white/30 bg-white/95 px-5 py-3 shadow-lg backdrop-blur-sm"
           >
-            <Search className="size-4 shrink-0 text-slate-400" />
+            <Search className="size-4 shrink-0 text-slate-400" aria-hidden />
             <input
-              name="q"
+              name="country"
               type="text"
-              defaultValue={query}
-              placeholder="Search destination, activity, or guide…"
-              className="flex-1 bg-transparent text-sm outline-none placeholder:text-slate-400"
+              placeholder="Search a country or destination…"
+              aria-label="Search a country or destination"
+              className="flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
             />
             <button
               type="submit"
-              className="rounded-full bg-[#0E7A45] px-4 py-1.5 text-xs font-semibold text-white hover:opacity-90"
+              className="bg-brand-green rounded-full px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#0c6438]"
             >
               Search
             </button>
@@ -63,72 +76,102 @@ export default async function ExplorePage({
         </div>
       </section>
 
-      {/* Continent filter pills */}
-      <section className="border-b border-slate-100 bg-slate-50 px-4 py-4 md:px-8">
-        <div className="mx-auto flex max-w-5xl flex-wrap gap-2">
-          <Link
-            href="/explore"
-            className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition-colors ${
-              !continentFilter
-                ? "border-[#0E7A45] bg-[#0E7A45] text-white"
-                : "border-slate-200 bg-white text-slate-600 hover:border-[#0E7A45] hover:text-[#0E7A45]"
-            }`}
-          >
-            All
-          </Link>
-          {Object.keys(destinationMenu).map((continent) => (
-            <Link
-              key={continent}
-              href={`/explore?continent=${slugify(continent)}`}
-              className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition-colors ${
-                continentFilter === slugify(continent)
-                  ? "border-[#0E7A45] bg-[#0E7A45] text-white"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-[#0E7A45] hover:text-[#0E7A45]"
-              }`}
-            >
-              {continent}
-            </Link>
-          ))}
+      {/* Destinations by country → region strips */}
+      <section className="px-4 py-16 md:px-8 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10">
+            <p className="text-brand-green mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+              Where to
+            </p>
+            <h2 className="font-heading text-dark text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+              Browse by destination
+            </h2>
+            <p className="mt-3 max-w-2xl leading-relaxed text-pretty text-slate-500">
+              Each region shows its standout attraction and the lowest daily price among its guides.
+            </p>
+          </div>
+
+          {countryGroups.length === 0 ? (
+            <p className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-slate-500">
+              Destinations are loading. Please check back shortly.
+            </p>
+          ) : (
+            <div className="flex flex-col gap-12">
+              {countryGroups.map((group) => (
+                <div key={group.country}>
+                  <div className="mb-4 flex items-end justify-between gap-4">
+                    <h3 className="text-dark text-xl font-semibold">{group.country}</h3>
+                    <Link
+                      href={`/guides?country=${encodeURIComponent(group.country.toLowerCase())}`}
+                      className="text-brand-green flex shrink-0 items-center gap-1 text-sm font-semibold hover:underline"
+                    >
+                      All guides
+                      <ArrowRight className="size-4" aria-hidden />
+                    </Link>
+                  </div>
+                  <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden">
+                    {group.regions.map((region) => (
+                      <RegionTile key={region.id} region={region} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Destination grid */}
-      <section className="flex-1 px-4 py-10 md:px-8">
-        <div className="mx-auto max-w-5xl">
-          {Object.entries(destinationMenu)
-            .filter(([continent]) =>
-              continentFilter ? slugify(continent) === continentFilter : true
-            )
-            .map(([continent, destinations]) => (
-              <div key={continent} className="mb-10">
-                <h2 className="mb-4 text-lg font-semibold text-[#0F172A]">{continent}</h2>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                  {destinations
-                    .filter((d) => (query ? d.toLowerCase().includes(query.toLowerCase()) : true))
-                    .map((dest) => (
-                      <Link
-                        key={dest}
-                        href={`/explore?region=${slugify(dest)}`}
-                        className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-shadow hover:shadow-md ${continentColors[continent] ?? "border-slate-200 bg-slate-50 text-slate-700"}`}
-                      >
-                        <MapPin className="size-3.5 shrink-0 opacity-60" />
-                        {dest}
-                      </Link>
-                    ))}
-                </div>
-              </div>
-            ))}
-
-          {/* Coming soon notice */}
-          <div className="mt-6 rounded-xl border border-dashed border-slate-200 px-6 py-10 text-center">
-            <p className="mb-1 font-semibold text-[#0F172A]">Full trip listings coming soon</p>
-            <p className="text-sm text-slate-500">
-              We&apos;re onboarding verified guides now. Browse destinations above or{" "}
-              <Link href="/become-a-guide" className="text-[#0E7A45] underline underline-offset-2">
-                apply to become a guide
-              </Link>
-              .
+      {/* Browse by experience */}
+      <section className="bg-slate-50 px-4 py-16 md:px-8 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10">
+            <p className="text-brand-green mb-3 text-xs font-semibold tracking-[0.18em] uppercase">
+              What to do
             </p>
+            <h2 className="font-heading text-dark text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+              Browse by experience
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+            {EXPERIENCES.map(({ label, icon: Icon }) => (
+              <Link
+                key={label}
+                href={`/guides?specialties=${encodeURIComponent(label)}`}
+                className="hover:border-brand-green/40 group flex flex-col items-center gap-3 rounded-2xl border border-slate-100 bg-white p-5 text-center shadow-sm transition-shadow hover:shadow-md"
+              >
+                <span className="bg-brand-green/10 flex size-11 items-center justify-center rounded-xl">
+                  <Icon className="text-brand-green size-5" aria-hidden />
+                </span>
+                <span className="text-dark text-sm font-semibold">{label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA band */}
+      <section className="px-4 py-16 text-center md:px-8">
+        <div className="mx-auto max-w-xl">
+          <h2 className="font-heading text-dark mb-4 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+            Know a place better than anyone?
+          </h2>
+          <p className="mb-8 leading-relaxed text-pretty text-slate-500">
+            Share your corner of the world and earn fairly for it. Become a verified guide.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/become-a-guide"
+              className="bg-brand-green focus-visible:ring-brand-green inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0c6438] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              Become a Guide
+              <ArrowRight className="size-4" aria-hidden />
+            </Link>
+            <Link
+              href="/about"
+              className="border-brand-green bg-brand-green/10 text-brand-green hover:bg-brand-green/20 focus-visible:ring-brand-green inline-flex items-center justify-center gap-2 rounded-full border px-7 py-3.5 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            >
+              How it works
+            </Link>
           </div>
         </div>
       </section>

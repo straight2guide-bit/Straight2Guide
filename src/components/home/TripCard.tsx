@@ -47,7 +47,7 @@ export function TripCard({ trip }: TripCardProps) {
             <Clock className="size-3.5" />
             {trip.duration_days} days
           </span>
-          <span className="font-bold text-[#0F172A]">from ${trip.base_price}</span>
+          <span className="font-bold text-[#0F172A]">from €{trip.base_price}</span>
         </div>
         {trip.guide && (
           <p className="mt-1 text-xs text-slate-400">with {trip.guide.display_name}</p>

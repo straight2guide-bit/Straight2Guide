@@ -128,7 +128,7 @@ export function GuideCard({ guide }: GuideCardProps) {
           <div className="flex items-center gap-6 sm:flex-col sm:items-end sm:gap-3">
             <div className="flex items-center gap-2 sm:flex-col sm:items-end sm:gap-0">
               <span className="text-dark text-xl font-bold">
-                {price_per_person != null ? `$${price_per_person}` : "—"}
+                {price_per_person != null ? `€${price_per_person}` : "—"}
               </span>
               <span className="flex items-center gap-1 text-xs text-slate-400">
                 <User className="size-3.5" aria-hidden />
@@ -137,7 +137,7 @@ export function GuideCard({ guide }: GuideCardProps) {
             </div>
             {price_per_vehicle != null && (
               <div className="flex items-center gap-2 sm:flex-col sm:items-end sm:gap-0">
-                <span className="text-dark text-xl font-bold">${price_per_vehicle}</span>
+                <span className="text-dark text-xl font-bold">€{price_per_vehicle}</span>
                 <span className="flex items-center gap-1 text-xs text-slate-400">
                   <Car className="size-3.5" aria-hidden />
                   guide with car

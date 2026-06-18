@@ -345,7 +345,7 @@ export default async function GuideProfilePage({ params }: { params: Promise<{ s
                   <User className="size-4 text-slate-500" aria-hidden />
                 </span>
                 <span className="text-dark text-xl font-bold">
-                  {guide.price_per_person != null ? `$${guide.price_per_person}` : "On request"}
+                  {guide.price_per_person != null ? `€${guide.price_per_person}` : "On request"}
                 </span>
                 <span className="text-xs text-slate-400">per person</span>
               </span>
@@ -354,7 +354,7 @@ export default async function GuideProfilePage({ params }: { params: Promise<{ s
                   <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-slate-100">
                     <Car className="size-4 text-slate-500" aria-hidden />
                   </span>
-                  <span className="text-dark text-xl font-bold">${guide.price_per_vehicle}</span>
+                  <span className="text-dark text-xl font-bold">€{guide.price_per_vehicle}</span>
                   <span className="text-xs text-slate-400">guide with car</span>
                 </span>
               )}
