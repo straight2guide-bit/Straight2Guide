@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Trees, Bird, Mountain, Camera, Leaf, Landmark, ArrowRight } from "lucide-react";
+import { Trees, Bird, Mountain, Camera, Leaf, Landmark, ArrowRight } from "lucide-react";
 import { getRegionsByCountry } from "@/lib/explore/regions";
 import { RegionTile } from "@/components/explore/RegionTile";
 
@@ -30,7 +30,7 @@ export default async function ExplorePage() {
 
   return (
     <main className="flex flex-1 flex-col">
-      {/* Hero + search */}
+      {/* Hero */}
       <section className="relative overflow-hidden px-4 py-16 text-center md:px-8 md:py-20">
         <Image
           src="/country-heroes/kenya-v2.jpg"
@@ -51,36 +51,16 @@ export default async function ExplorePage() {
             priority
             className="mx-auto mb-6 h-16 w-16 md:h-20 md:w-20"
           />
-          <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-white/85 uppercase [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
+          <p className="mb-4 text-xs font-semibold tracking-[0.18em] text-white/85 uppercase [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
             Explore
           </p>
-          <h1 className="font-heading mb-4 text-4xl font-semibold tracking-tight text-balance text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] md:text-5xl">
+          <h1 className="font-heading mb-5 text-4xl font-semibold tracking-tight text-balance text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] md:text-5xl">
             Find your next journey.
           </h1>
-          <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-pretty text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-pretty text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.5)]">
             Browse by country and region, then connect directly with verified local guides — book
             them by the day or with a vehicle. Your trip, your pace, no middlemen.
           </p>
-          <form
-            method="GET"
-            action="/guides"
-            className="mx-auto flex max-w-lg items-center gap-2 rounded-full border border-white/30 bg-white/95 px-5 py-3 shadow-lg backdrop-blur-sm"
-          >
-            <Search className="size-4 shrink-0 text-slate-400" aria-hidden />
-            <input
-              name="country"
-              type="text"
-              placeholder="Search a country or destination…"
-              aria-label="Search a country or destination"
-              className="flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
-            />
-            <button
-              type="submit"
-              className="bg-brand-green rounded-full px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#0c6438]"
-            >
-              Search
-            </button>
-          </form>
         </div>
       </section>
 
