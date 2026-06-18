@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
+import { getRegionHero } from "@/config/regionHeroes";
 import { getCountryHero } from "@/config/countryHeroes";
 import type { Region } from "@/lib/supabase/types";
 
@@ -8,12 +9,12 @@ interface RegionCardProps {
   region: Region;
 }
 
-// A featured region. Reuses the country hero image (src/config/countryHeroes.ts)
-// for the photo since seeded regions have no hero_image_url of their own.
-// Interim link: the guide search filtered to this region's country — repoint to
-// /regions/[slug] once that page exists (Phase 2).
+// A featured region. Uses the region's signature-attraction image
+// (src/config/regionHeroes.ts), falling back to the country hero when a region
+// has no image yet. Interim link: the guide search filtered to this region's
+// country — repoint to /regions/[slug] once that page exists (Phase 2).
 export function RegionCard({ region }: RegionCardProps) {
-  const hero = getCountryHero(region.country);
+  const hero = getRegionHero(region.slug) ?? getCountryHero(region.country);
 
   return (
     <Link
